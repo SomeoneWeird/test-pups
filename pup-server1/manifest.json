@@ -2,8 +2,8 @@
   "manifestVersion": 1,
   "meta": {
     "name": "pup-server1",
-    "version": "0.0.3",
-    "logoPath": null,
+    "version": "0.0.4",
+    "logoPath": "",
     "shortDescription": "pup-server1 short description",
     "longDescription": "This pup listens on port 8080"
   },
@@ -19,7 +19,9 @@
       {
         "name": "server1",
         "command": {
-          "exec": "/bin/server"
+          "exec": "/bin/server",
+          "cwd": "",
+          "env": null
         }
       }
     ],

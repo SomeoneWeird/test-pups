@@ -8,6 +8,9 @@
     },
     {
       "location": "pup-server2"
+    },
+    {
+      "location": "pup-server3"
     }
   ]
 }
