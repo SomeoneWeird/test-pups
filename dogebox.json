@@ -1,0 +1,13 @@
+{
+  "id": "boxxen.test-pups",
+  "name": "s1w's test pup source",
+  "description": "A source for staging pup changes for Dogebox",
+  "pups": [
+    {
+      "location": "pup-server1"
+    },
+    {
+      "location": "pup-server2"
+    }
+  ]
+}
