@@ -2,22 +2,26 @@
   "manifestVersion": 1,
   "meta": {
     "name": "pup-server2",
-    "version": "0.0.1",
-    "logoPath": null,
+    "version": "0.0.2",
+    "logoPath": "",
     "shortDescription": "pup-server2 short description",
     "longDescription": "This pup listens on port 8081"
   },
-  "config": {},
+  "config": {
+    "sections": null
+  },
   "container": {
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "bb405c5f11b287cf8f01fd9d8dc504ffe43f2efa9ba292902e761c8670d798eb"
+      "nixFileSha256": "d5681fd375a35c3bfc8cfb52681af454db1c417abae6d9ec5ffdc1a855cda387"
     },
     "services": [
       {
         "name": "server2",
         "command": {
-          "exec": "/bin/server"
+          "exec": "/bin/server",
+          "cwd": "",
+          "env": null
         }
       }
     ],
@@ -25,7 +29,8 @@
       {
         "type": "admin",
         "trafficType": "http",
-        "port": 8081
+        "port": 8081,
+        "interfaces": []
       }
     ]
   },

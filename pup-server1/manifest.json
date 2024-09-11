@@ -2,16 +2,18 @@
   "manifestVersion": 1,
   "meta": {
     "name": "pup-server1",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "logoPath": null,
     "shortDescription": "pup-server1 short description",
     "longDescription": "This pup listens on port 8080"
   },
-  "config": {},
+  "config": {
+    "sections": null
+  },
   "container": {
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "bb405c5f11b287cf8f01fd9d8dc504ffe43f2efa9ba292902e761c8670d798eb"
+      "nixFileSha256": "c165d65d70fd8a802fd0766ef40511517762f0ccda24580091e1eefd4de62896"
     },
     "services": [
       {
@@ -25,7 +27,8 @@
       {
         "type": "admin",
         "trafficType": "http",
-        "port": 8080
+        "port": 8080,
+        "interfaces": []
       }
     ]
   },
