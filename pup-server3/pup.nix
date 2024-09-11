@@ -7,7 +7,7 @@ let
 
     buildInputs = [ pkgs.go ];
 
-    src = ./;
+    src = ./.;
 
     unpackPhase = "true";
 

@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "meta": {
     "name": "pup-server3",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "logoPath": "",
     "shortDescription": "pup-server3 short description",
     "longDescription": "This pup listens on port 8082"
@@ -13,7 +13,7 @@
   "container": {
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "c49abcef4f947a079522d0ccf8b1f4680279113a8933c791a73f68bd20feec80"
+      "nixFileSha256": "80b67e31c283ded00be3a990488c55b64693687bdea9f2f720ca34adf937f288"
     },
     "services": [
       {
