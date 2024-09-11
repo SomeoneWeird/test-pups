@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "meta": {
     "name": "pup-server1",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "logoPath": null,
     "shortDescription": "pup-server1 short description",
     "longDescription": "This pup listens on port 8080"
