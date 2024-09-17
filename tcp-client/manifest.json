@@ -1,0 +1,34 @@
+{
+  "manifestVersion": 1,
+  "meta": {
+    "name": "tcp-client",
+    "version": "0.0.1",
+    "logoPath": "",
+    "shortDescription": "tcp-client short description",
+    "longDescription": "This tcp-client connects to the tcp-server and sends random words"
+  },
+  "config": {
+    "sections": null
+  },
+  "container": {
+    "build": {
+      "nixFile": "pup.nix",
+      "nixFileSha256": "66e9d7b319b726191418249cedb45646c66afc30e424cdfe6c6802289df1e56a"
+    },
+    "services": [
+      {
+        "name": "client",
+        "command": {
+          "exec": "/bin/client"
+        }
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "interfaceName": "count-server",
+      "interfaceVersion": "0.0.1",
+      "permissiongroups": ["count"]
+    }
+  ]
+}

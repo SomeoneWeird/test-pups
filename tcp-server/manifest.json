@@ -1,0 +1,50 @@
+{
+  "manifestVersion": 1,
+  "meta": {
+    "name": "tcp-server",
+    "version": "0.0.1",
+    "logoPath": "",
+    "shortDescription": "tcp-server short description",
+    "longDescription": "This tcp-server listens on port 9999"
+  },
+  "config": {
+    "sections": null
+  },
+  "container": {
+    "build": {
+      "nixFile": "pup.nix",
+      "nixFileSha256": "4691b0f625f9afe7113da8288113cc812b9d5577934eda6044b94768f22389e6"
+    },
+    "services": [
+      {
+        "name": "server",
+        "command": {
+          "exec": "/bin/server"
+        }
+      }
+    ],
+    "exposes": [
+      {
+        "name": "count-server",
+        "type": "tcp",
+        "port": 9999,
+        "interfaces": ["count-server"]
+      }
+    ]
+  },
+  "interfaces": [
+    {
+      "name": "count-server",
+      "version": "0.0.1",
+      "permissionGroups": [
+        {
+          "name": "count",
+          "description": "Count permission allows access to count the number of characters received",
+          "severity": 3,
+          "port": 9999
+        }
+      ]
+    }
+  ],
+  "dependencies": []
+}

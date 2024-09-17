@@ -1,0 +1,81 @@
+{
+  "manifestVersion": 1,
+  "meta": {
+    "name": "Dogecoin Core",
+    "version": "0.0.1",
+    "logoPath": "",
+    "shortDescription": "",
+    "longDescription": ""
+  },
+  "config": {
+    "sections": null
+  },
+  "container": {
+    "requiresInternet": true,
+    "build": {
+      "nixFile": "pup.nix",
+      "nixFileSha256": "42540ab314601591f69fae89f8248f416d4f6f347d67fe37326900100a92565d"
+    },
+    "services": [
+      {
+        "name": "dogecoind",
+        "command": {
+          "exec": "/bin/run.sh"
+        }
+      },
+      {
+        "name": "monitor",
+        "command": {
+          "exec": "/bin/monitor"
+        }
+      }
+    ],
+    "exposes": []
+  },
+  "interfaces": [],
+  "dependencies": [],
+  "metrics": [
+    {
+      "name": "chain",
+      "label": "Name of the chain",
+      "type": "string",
+      "history": 1
+    },
+    {
+      "name": "blocks",
+      "label": "Block height",
+      "type": "int",
+      "history": 30
+    },
+    {
+      "name": "headers",
+      "label": "Headers",
+      "type": "int",
+      "history": 30
+    },
+    {
+      "name": "difficulty",
+      "label": "Difficulty",
+      "type": "float",
+      "history": 30
+    },
+    {
+      "name": "verificationprogress",
+      "label": "Verification progress",
+      "type": "float",
+      "history": 30
+    },
+    {
+      "name": "initialblockdownload",
+      "label": "Initial block download",
+      "type": "string",
+      "history": 1
+    },
+    {
+      "name": "size_on_disk",
+      "label": "Size on disk in MB",
+      "type": "int",
+      "history": 30
+    }
+  ]
+}

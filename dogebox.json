@@ -11,6 +11,15 @@
     },
     {
       "location": "pup-server3"
+    },
+    {
+      "location": "dogecoin-core"
+    },
+    {
+      "location": "tcp-server"
+    },
+    {
+      "location": "tcp-client"
     }
   ]
 }

@@ -27,8 +27,8 @@
     ],
     "exposes": [
       {
-        "type": "admin",
-        "trafficType": "http",
+        "name": "admin",
+        "type": "http",
         "port": 8081,
         "interfaces": []
       }
