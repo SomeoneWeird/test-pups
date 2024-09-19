@@ -11,26 +11,38 @@
     "sections": null
   },
   "container": {
-    "requiresInternet": true,
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "42540ab314601591f69fae89f8248f416d4f6f347d67fe37326900100a92565d"
+      "nixFileSha256": "b87f77c2203700565a77161193116385bc4de3a46fa62d436cae710f62b8f633"
     },
     "services": [
       {
         "name": "dogecoind",
         "command": {
-          "exec": "/bin/run.sh"
+          "exec": "/bin/run.sh",
+          "cwd": "",
+          "env": null
         }
       },
       {
         "name": "monitor",
         "command": {
-          "exec": "/bin/monitor"
+          "exec": "/bin/monitor",
+          "cwd": "",
+          "env": null
+        }
+      },
+      {
+        "name": "logger",
+        "command": {
+          "exec": "/bin/logger",
+          "cwd": "",
+          "env": null
         }
       }
     ],
-    "exposes": []
+    "exposes": [],
+    "requiresInternet": true
   },
   "interfaces": [],
   "dependencies": [],
