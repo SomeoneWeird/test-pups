@@ -3,12 +3,7 @@
   "meta": {
     "name": "Dogecoin Core",
     "version": "0.0.1",
-    "logoPath": "",
-    "shortDescription": "Dogecoin Core",
     "longDescription": "Dogecoin Core runs a full core node on your dogebox"
-  },
-  "config": {
-    "sections": null
   },
   "container": {
     "build": {
@@ -19,25 +14,19 @@
       {
         "name": "dogecoind",
         "command": {
-          "exec": "/bin/run.sh",
-          "cwd": "",
-          "env": null
+          "exec": "/bin/run.sh"
         }
       },
       {
         "name": "monitor",
         "command": {
-          "exec": "/bin/monitor",
-          "cwd": "",
-          "env": null
+          "exec": "/bin/monitor"
         }
       },
       {
         "name": "logger",
         "command": {
-          "exec": "/bin/logger",
-          "cwd": "",
-          "env": null
+          "exec": "/bin/logger"
         }
       }
     ],
@@ -46,26 +35,19 @@
         "name": "public-port",
         "type": "tcp",
         "port": 22556,
-        "interfaces": null,
         "listenOnHost": true
       },
       {
         "name": "rpc",
         "type": "http",
         "port": 22555,
-        "interfaces": [
-          "core-rpc"
-        ],
-        "listenOnHost": false
+        "interfaces": ["core-rpc"]
       },
       {
         "name": "zmq",
         "type": "tcp",
         "port": 28332,
-        "interfaces": [
-          "core-zmq"
-        ],
-        "listenOnHost": false
+        "interfaces": ["core-zmq"]
       }
     ],
     "requiresInternet": true
@@ -79,10 +61,7 @@
           "name": "RPC",
           "description": "Allows RPC access to the Dogecoin Core node",
           "severity": 2,
-          "routes": [
-            "/*"
-          ],
-          "port": 0
+          "routes": ["/*"]
         }
       ]
     },
