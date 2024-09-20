@@ -4,8 +4,8 @@
     "name": "Dogecoin Core",
     "version": "0.0.1",
     "logoPath": "",
-    "shortDescription": "",
-    "longDescription": ""
+    "shortDescription": "Dogecoin Core",
+    "longDescription": "Dogecoin Core runs a full core node on your dogebox"
   },
   "config": {
     "sections": null
@@ -13,7 +13,7 @@
   "container": {
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "b87f77c2203700565a77161193116385bc4de3a46fa62d436cae710f62b8f633"
+      "nixFileSha256": "a306e31b106072ac23e7603284f1fc2b826d3d1191dba12968a61d2525ac35e8"
     },
     "services": [
       {
@@ -41,11 +41,66 @@
         }
       }
     ],
-    "exposes": [],
+    "exposes": [
+      {
+        "name": "public-port",
+        "type": "tcp",
+        "port": 22556,
+        "interfaces": null,
+        "listenOnHost": true
+      },
+      {
+        "name": "rpc",
+        "type": "http",
+        "port": 22555,
+        "interfaces": [
+          "core-rpc"
+        ],
+        "listenOnHost": false
+      },
+      {
+        "name": "zmq",
+        "type": "tcp",
+        "port": 28332,
+        "interfaces": [
+          "core-zmq"
+        ],
+        "listenOnHost": false
+      }
+    ],
     "requiresInternet": true
   },
-  "interfaces": [],
-  "dependencies": [],
+  "interfaces": [
+    {
+      "name": "core-rpc",
+      "version": "0.0.1",
+      "permissionGroups": [
+        {
+          "name": "RPC",
+          "description": "Allows RPC access to the Dogecoin Core node",
+          "severity": 2,
+          "routes": [
+            "/*"
+          ],
+          "port": 0
+        }
+      ]
+    },
+    {
+      "name": "core-zmq",
+      "version": "0.0.1",
+      "permissionGroups": [
+        {
+          "name": "ZMQ",
+          "description": "Allows ZMQ access to the Dogecoin Core node",
+          "severity": 1,
+          "routes": null,
+          "port": 28332
+        }
+      ]
+    }
+  ],
+  "dependencies": null,
   "metrics": [
     {
       "name": "chain",
@@ -72,13 +127,13 @@
       "history": 30
     },
     {
-      "name": "verificationprogress",
+      "name": "verification_progress",
       "label": "Verification progress",
       "type": "float",
       "history": 30
     },
     {
-      "name": "initialblockdownload",
+      "name": "initial_block_download",
       "label": "Initial block download",
       "type": "string",
       "history": 1

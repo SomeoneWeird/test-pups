@@ -1,17 +1,21 @@
-{ pkgs }:
+{ pkgs ? import <nixpkgs> {} }:
 
 let
   storageDirectory = "/storage";
   dogecoind_bin = pkgs.callPackage (pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/dogeorg/dogebox-nur-packages/19de423874c3258fae756933d30482ff74605cee/pkgs/dogecoin-core/default.nix";
-    sha256 = "sha256-A1GA/dJee2YBs5b4prxHPr5WQfnuTTD7EX/iy9ufxYA=";
-  }) {};
+    url = "https://raw.githubusercontent.com/dogeorg/dogebox-nur-packages/3e186170de7f470b883675a7baec97edad42ad99/pkgs/dogecoin-core/default.nix";
+    sha256 = "sha256-XaN6D6vFNLgPHQVndF3YIhhCSWkpuUr7LMAdBKwCvu8=";
+  }) {
+    disableWallet = true;
+    disableGUI = true;
+    disableTests = true;
+  };
 
   dogecoind = pkgs.writeScriptBin "run.sh" ''
     #!${pkgs.stdenv.shell}
     if [ ! -f /storage/rpcuser.txt ] || [ ! -f /storage/rpcpassword.txt ]; then
-        RPCUSER=$(${pkgs.openssl}/bin/openssl rand -base64 10 | tr -dc 'a-zA-Z0-9' | head -c 10)
-        RPCPASS=$(${pkgs.openssl}/bin/openssl rand -base64 20 | tr -dc 'a-zA-Z0-9' | head -c 20)
+        RPCUSER=dogebox_core_pup_temporary_static_username
+        RPCPASS=dogebox_core_pup_temporary_static_password
 
         echo "$RPCUSER" > /storage/rpcuser.txt
         echo "$RPCPASS" > /storage/rpcpassword.txt
@@ -20,7 +24,16 @@ let
         RPCPASS=$(cat /storage/rpcpassword.txt)
     fi
     
-    ${dogecoind_bin}/bin/dogecoind -datadir=${storageDirectory} -rpcuser=$RPCUSER -rpcpassword=$RPCPASS
+    ${dogecoind_bin}/bin/dogecoind \
+      -port=22556 \
+      -datadir=${storageDirectory} \
+      -rpc=1 \
+      -rpcuser=$RPCUSER \
+      -rpcpassword=$RPCPASS \
+      -rpcbind=$DBX_PUP_IP \
+      -rpcport=22555 \
+      -rpcallowip=10.69.0.0/16 \
+      -zmqpubhashblock=tcp://0.0.0.0:28332
   '';
 
   monitor = pkgs.buildGoModule {

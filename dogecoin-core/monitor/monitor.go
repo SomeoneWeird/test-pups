@@ -21,8 +21,8 @@ type BlockchainInfo struct {
 	Blocks               int     `json:"blocks"`
 	Headers              int     `json:"headers"`
 	Difficulty           float64 `json:"difficulty"`
-	VerificationProgress float64 `json:"verificationprogress"`
-	InitialBlockDownload bool    `json:"initialblockdownload"`
+	VerificationProgress float64 `json:"verification_progress"`
+	InitialBlockDownload bool    `json:"initial_block_download"`
 	SizeOnDisk           int64   `json:"size_on_disk"`
 }
 
@@ -50,6 +50,7 @@ func getRawBlockchainInfo(username, password string) (string, error) {
 		filepath.Join(pathToDogecoind, "bin", "dogecoin-cli"),
 		fmt.Sprintf("-rpcuser=%s", strings.TrimSpace(string(username))),
 		fmt.Sprintf("-rpcpassword=%s", strings.TrimSpace(string(password))),
+		fmt.Sprintf("-rpcconnect=%s", os.Getenv("DBX_PUP_IP")),
 		"getblockchaininfo",
 	}
 
@@ -78,13 +79,13 @@ func parseRawBlockchainInfo(rawInfo string) (BlockchainInfo, error) {
 func submitMetrics(info BlockchainInfo) {
 	client := &http.Client{}
 	jsonData := map[string]interface{}{
-		"chain":                map[string]interface{}{"value": info.Chain},
-		"blocks":               map[string]interface{}{"value": info.Blocks},
-		"headers":              map[string]interface{}{"value": info.Headers},
-		"difficulty":           map[string]interface{}{"value": info.Difficulty},
-		"verificationprogress": map[string]interface{}{"value": info.VerificationProgress},
-		"initialblockdownload": map[string]interface{}{"value": fmt.Sprintf("%v", info.InitialBlockDownload)},
-		"size_on_disk":         map[string]interface{}{"value": info.SizeOnDisk},
+		"chain":                  map[string]interface{}{"value": info.Chain},
+		"blocks":                 map[string]interface{}{"value": info.Blocks},
+		"headers":                map[string]interface{}{"value": info.Headers},
+		"difficulty":             map[string]interface{}{"value": info.Difficulty},
+		"verification_progress":  map[string]interface{}{"value": info.VerificationProgress},
+		"initial_block_download": map[string]interface{}{"value": fmt.Sprintf("%v", info.InitialBlockDownload)},
+		"size_on_disk":           map[string]interface{}{"value": info.SizeOnDisk},
 	}
 
 	marshalledData, err := json.Marshal(jsonData)
@@ -93,7 +94,9 @@ func submitMetrics(info BlockchainInfo) {
 		return
 	}
 
-	req, err := http.NewRequest("POST", "http://10.69.0.1:8082/dbx/metrics", bytes.NewBuffer(marshalledData))
+	url := fmt.Sprintf("http://%s:%s/dbx/metrics", os.Getenv("DBX_HOST"), os.Getenv("DBX_PORT"))
+
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(marshalledData))
 	if err != nil {
 		log.Printf("Error creating request: %v", err)
 		return
