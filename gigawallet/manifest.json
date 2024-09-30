@@ -1,0 +1,63 @@
+{
+  "manifestVersion": 1,
+  "meta": {
+    "name": "Gigawallet",
+    "version": "0.0.1",
+    "logoPath": "logo.png",
+    "shortDescription": "",
+    "longDescription": "Dogecoin GigaWallet is a backend service which provides a convenient integration API for platforms such as online shops, exchanges, social media platforms etc, to transact Dogecoin on behalf of their users.",
+    "upstreamVersions": {
+      "Gigawallet": "v1.0.1"
+    }
+  },
+  "config": {
+    "sections": null
+  },
+  "container": {
+    "build": {
+      "nixFile": "pup.nix",
+      "nixFileSha256": "57a75a0a5b3437f177241e25e3676fa42e9ad95ac4964243560b056555005266"
+    },
+    "services": [
+      {
+        "name": "gigawallet",
+        "command": {
+          "exec": "/bin/run.sh",
+          "cwd": "",
+          "env": null
+        }
+      }
+    ],
+    "exposes": [
+      {
+        "name": "public-port",
+        "type": "http",
+        "port": 10000,
+        "interfaces": null,
+        "listenOnHost": true
+      },
+      {
+        "name": "admin-port",
+        "type": "http",
+        "port": 20000,
+        "interfaces": null,
+        "listenOnHost": false
+      }
+    ],
+    "requiresInternet": true
+  },
+  "interfaces": null,
+  "dependencies": [
+    {
+      "interfaceName": "core-rpc",
+      "interfaceVersion": "0.0.1",
+      "permissionGroups": ["RPC"]
+    },
+    {
+      "interfaceName": "core-zmq",
+      "interfaceVersion": "0.0.1",
+      "permissionGroups": ["ZMQ"]
+    }
+  ],
+  "metrics": null
+}
