@@ -26,6 +26,12 @@
     },
     {
       "location": "dogemap"
+    },
+    {
+      "location": "dogenet"
+    },
+    {
+      "location": "identity"
     }
   ]
 }

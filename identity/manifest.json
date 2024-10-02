@@ -1,0 +1,35 @@
+{
+  "manifestVersion": 1,
+  "meta": {
+    "name": "Identity",
+    "version": "0.0.1",
+    "logoPath": "",
+    "shortDescription": "Express your own identity on the network",
+    "longDescription": "",
+    "upstreamVersions": null
+  },
+  "config": {
+    "sections": null
+  },
+  "container": {
+    "build": {
+      "nixFile": "pup.nix",
+      "nixFileSha256": "d0af9292c8817af3722257d5dc6d5c74d62a9277159a4525515996134d7d3d41"
+    },
+    "services": [
+      {
+        "name": "identity",
+        "command": {
+          "exec": "/bin/run.sh",
+          "cwd": "",
+          "env": null
+        }
+      }
+    ],
+    "exposes": [],
+    "requiresInternet": false
+  },
+  "interfaces": [],
+  "dependencies": [],
+  "metrics": null
+}
