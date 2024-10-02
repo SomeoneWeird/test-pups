@@ -3,7 +3,7 @@
   "meta": {
     "name": "Identity",
     "version": "0.0.1",
-    "logoPath": "",
+    "logoPath": "logo.png",
     "shortDescription": "Express your own identity on the network",
     "longDescription": "",
     "upstreamVersions": null
