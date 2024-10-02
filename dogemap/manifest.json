@@ -3,7 +3,7 @@
   "meta": {
     "name": "Dogemap",
     "version": "0.0.1",
-    "logoPath": "",
+    "logoPath": "logo.png",
     "shortDescription": "Find shibes & nodes around the globe",
     "longDescription": "",
     "upstreamVersions": null
