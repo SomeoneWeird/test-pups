@@ -48,42 +48,45 @@ let
       mkdir -p $out
       cp -r $src/* $out/
       rm $out/conf.php
-      cat > $out/conf.php <<EOF
-<?php
+      ln -s /storage/conf.php $out/conf.php
+      touch $out/new
 
-header('Access-Control-Allow-Origin: *');
-//ini_set('display_errors', 1);
+#       cat > $out/conf.php <<EOF
+# <?php
 
-// GigaWallet Server configuration
-// Attenttion **
-// Subscribe on GigaWallet for PAYMENT_RECEIVED to /callback/ to update payments
-// Attenttion **
-\$config["gigawallet"] = 1; // enable GigaWallet
-\$config["GigaServer"][0] = "10.69.0.3"; // admin server
-\$config["GigaPort"][0] = 8081; // admin server port
-\$config["GigaServer"][1] = "10.69.0.3"; // public server
-\$config["GigaPort"][1] = 8082; // public server port
-\$config["GigaDust"] = 0; // GigaWallet deduct dust to the payment to be able to send it successfully because of network fees
-\$config["payout_address"] = "Dxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; // Dogecoin payout address to move to a secure wallet
+# header('Access-Control-Allow-Origin: *');
+# //ini_set('display_errors', 1);
 
-// MariaDB Server configuration
-\$config["dbhost"] = "localhost"; 
-\$config["dbuser"] = "pup";
-# \$config["dbpass"] = "shuchpass";
-\$config["dbname"] = "dogebox";
-\$config["dbport"] = 3306;
+# // GigaWallet Server configuration
+# // Attenttion **
+# // Subscribe on GigaWallet for PAYMENT_RECEIVED to /callback/ to update payments
+# // Attenttion **
+# \$config["gigawallet"] = 1; // enable GigaWallet
+# \$config["GigaServer"][0] = "10.69.0.3"; // admin server
+# \$config["GigaPort"][0] = 8081; // admin server port
+# \$config["GigaServer"][1] = "10.69.0.3"; // public server
+# \$config["GigaPort"][1] = 8082; // public server port
+# \$config["GigaDust"] = 0; // GigaWallet deduct dust to the payment to be able to send it successfully because of network fees
+# \$config["payout_address"] = "Dxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; // Dogecoin payout address to move to a secure wallet
 
-// SMTP Email Server Configuration
-\$config["mail_name_from"] = "DogeBox"; // name to show on all emails sent
-\$config["email_from"] = "no-reply@doge-box.com"; // email to show and reply on all emails sent
-\$config["email_reply_to"] = "no-reply@doge-box.com"; // email to reply
-\$config["email_port"] = 465;
-\$config["email_password"] = "shuchpass";
-\$config["email_stmp"] = "mail.doge-box.com";
+# // MariaDB Server configuration
+# \$config["dbhost"] = "localhost"; 
+# \$config["dbuser"] = "pup";
+# # \$config["dbpass"] = "shuchpass";
+# \$config["dbname"] = "dogebox";
+# \$config["dbport"] = 3306;
 
-// Shipper Server Configuration
-\$config["shipperHost"] = 'http://localhost:3000';
-EOF
+# // SMTP Email Server Configuration
+# \$config["mail_name_from"] = "DogeBox"; // name to show on all emails sent
+# \$config["email_from"] = "no-reply@doge-box.com"; // email to show and reply on all emails sent
+# \$config["email_reply_to"] = "no-reply@doge-box.com"; // email to reply
+# \$config["email_port"] = 465;
+# \$config["email_password"] = "shuchpass";
+# \$config["email_stmp"] = "mail.doge-box.com";
+
+# // Shipper Server Configuration
+# \$config["shipperHost"] = 'http://localhost:3000';
+# EOF
 
     cat > $out/frankenphpconfig.json <<EOF
 {"admin":{"disabled":true},"apps":{"frankenphp":{},"http":{"servers":{"srv0":{"listen":[":8089"],"routes":[{"handle":[{"handler":"vars","root":"/nix/store/kgsh1f8mkj6wmw14z3vgzf3amil87ls4-order-page-files/"},{"encodings":{"br":{},"gzip":{},"zstd":{}},"handler":"encode","prefer":["zstd","br","gzip"]}]},{"match":[{"file":{"try_files":["{http.request.uri.path}/index.php"]},"not":[{"path":["*/"]}]}],"handle":[{"handler":"static_response","headers":{"Location":["{http.request.orig_uri.path}/"]},"status_code":308}]},{"match":[{"file":{"try_files":["{http.request.uri.path}","{http.request.uri.path}/index.php","index.php"],"split_path":[".php"]}}],"handle":[{"handler":"rewrite","uri":"{http.matchers.file.relative}"}]},{"match":[{"path":["*.php"]}],"handle":[{"handler":"php","split_path":[".php"]}]},{"handle":[{"handler":"file_server"}]},{"handle":[{"handler":"file_server","hide":["/nix/store/7gfnjbxanzwcxnm4wvh8m37bksh54y03-order-page-files/frankenphpconfig"]}]}]}}}}}
@@ -106,7 +109,45 @@ EOF
   };
 
   orderPage = pkgs.writeScriptBin "run.sh" ''
-    #!${pkgs.stdenv.shell}
+    #!/run/current-system/sw/bin/bash
+
+      cat > /storage/conf.php <<EOF
+<?php
+
+header('Access-Control-Allow-Origin: *');
+//ini_set('display_errors', 1);
+
+// GigaWallet Server configuration
+// Attenttion **
+// Subscribe on GigaWallet for PAYMENT_RECEIVED to /callback/ to update payments
+// Attenttion **
+\$config["gigawallet"] = 1; // enable GigaWallet
+\$config["GigaServer"][0] = "''${DBX_IFACE_GIGAWALLET_ADMIN_HOST}"; // admin server
+\$config["GigaPort"][0] = ''${DBX_IFACE_GIGAWALLET_ADMIN_PORT}; // admin server port
+\$config["GigaServer"][1] = "''${DBX_IFACE_GIGAWALLET_PUBLIC_HOST}"; // public server
+\$config["GigaPort"][1] = ''${DBX_IFACE_GIGAWALLET_PUBLIC_PORT}; // public server port
+\$config["GigaDust"] = 0; // GigaWallet deduct dust to the payment to be able to send it successfully because of network fees
+\$config["payout_address"] = "Dxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; // Dogecoin payout address to move to a secure wallet
+
+// MariaDB Server configuration
+\$config["dbhost"] = "localhost"; 
+\$config["dbuser"] = "pup";
+# \$config["dbpass"] = "shuchpass";
+\$config["dbname"] = "dogebox";
+\$config["dbport"] = 3306;
+
+// SMTP Email Server Configuration
+\$config["mail_name_from"] = "DogeBox"; // name to show on all emails sent
+\$config["email_from"] = "no-reply@doge-box.com"; // email to show and reply on all emails sent
+\$config["email_reply_to"] = "no-reply@doge-box.com"; // email to reply
+\$config["email_port"] = 465;
+\$config["email_password"] = "shuchpass";
+\$config["email_stmp"] = "mail.doge-box.com";
+
+// Shipper Server Configuration
+\$config["shipperHost"] = 'http://localhost:3000';
+EOF
+
     ${pkgs.frankenphp}/bin/frankenphp run --config ${orderPageFiles}/frankenphpconfig.json
   '';
 

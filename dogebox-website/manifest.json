@@ -14,7 +14,7 @@
   "container": {
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "5d5d389960f8691bb8c011c256e0e8ec83129af5edb1f875307c36927db2496e"
+      "nixFileSha256": "476c88da7c59b8590e6ab53b63c0c62ae75c3114daa49c009032c0e2cf7ce6b5"
     },
     "services": [
       {
@@ -39,6 +39,33 @@
     "requiresInternet": false
   },
   "interfaces": null,
-  "dependencies": null,
+  "dependencies": [
+    {
+      "interfaceName": "gigawallet-public",
+      "interfaceVersion": "0.0.1",
+      "permissionGroups": [
+        "Public"
+      ],
+      "source": {
+        "sourceLocation": "",
+        "pupName": "",
+        "pupVersion": "",
+        "pupLogoBase64": ""
+      }
+    },
+    {
+      "interfaceName": "gigawallet-admin",
+      "interfaceVersion": "0.0.1",
+      "permissionGroups": [
+        "Admin"
+      ],
+      "source": {
+        "sourceLocation": "",
+        "pupName": "",
+        "pupVersion": "",
+        "pupLogoBase64": ""
+      }
+    }
+  ],
   "metrics": null
 }

@@ -32,21 +32,46 @@
       {
         "name": "public-port",
         "type": "http",
-        "port": 10000,
-        "interfaces": null,
+        "port": 8082,
+        "interfaces": ["gigawallet-public"],
         "listenOnHost": true
       },
       {
         "name": "admin-port",
-        "type": "http",
-        "port": 20000,
-        "interfaces": null,
+        "type": "tcp",
+        "port": 8081,
+        "interfaces": ["gigawallet-admin"],
         "listenOnHost": false
       }
     ],
     "requiresInternet": true
   },
-  "interfaces": null,
+  "interfaces": [
+    {
+      "name": "gigawallet-public",
+      "version": "0.0.1",
+      "permissionGroups": [
+        {
+          "name": "Public",
+          "description": "Allows public access to Gigawallet",
+          "severity": 1,
+          "port": 8082
+        }
+      ]
+    },
+    {
+      "name": "gigawallet-admin",
+      "version": "0.0.1",
+      "permissionGroups": [
+        {
+          "name": "Admin",
+          "description": "Allows admin access to Gigawallet",
+          "severity": 3,
+          "port": 8081
+        }
+      ]
+    }
+  ],
   "dependencies": [
     {
       "interfaceName": "core-rpc",
