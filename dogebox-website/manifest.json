@@ -14,9 +14,18 @@
   "container": {
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "830c026a90696cfcccd90712b5da60a713754953e32c726c0357cff84294162a"
+      "nixFileSha256": "5d5d389960f8691bb8c011c256e0e8ec83129af5edb1f875307c36927db2496e"
     },
-    "services": [],
+    "services": [
+      {
+        "name": "orderPage",
+        "command": {
+          "exec": "/bin/run.sh",
+          "cwd": "",
+          "env": null
+        }
+      }
+    ],
     "exposes": [
       {
         "name": "public",

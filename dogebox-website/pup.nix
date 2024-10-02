@@ -24,7 +24,7 @@ let
   baseOrderPageFilesZIP = pkgs.requireFile {
     name = "dogebox-order-page-main.zip";
     url = "https://github.com/dogeorg/dogebox-order-page/archive/refs/heads/main.zip";
-    sha256 = "d3545bde3b37c1534add39fa8ba453d3308c9d46f16119058e2c08261220dbd7";
+    sha256 = "de9263814bd9bf44b8ed27945e1a908303ebc0c44248238862ca50d1acb153f1";
   };
 
   baseOrderPageFiles = pkgs.stdenv.mkDerivation {
@@ -84,8 +84,31 @@ header('Access-Control-Allow-Origin: *');
 // Shipper Server Configuration
 \$config["shipperHost"] = 'http://localhost:3000';
 EOF
+
+    cat > $out/frankenphpconfig.json <<EOF
+{"admin":{"disabled":true},"apps":{"frankenphp":{},"http":{"servers":{"srv0":{"listen":[":8089"],"routes":[{"handle":[{"handler":"vars","root":"/nix/store/kgsh1f8mkj6wmw14z3vgzf3amil87ls4-order-page-files/"},{"encodings":{"br":{},"gzip":{},"zstd":{}},"handler":"encode","prefer":["zstd","br","gzip"]}]},{"match":[{"file":{"try_files":["{http.request.uri.path}/index.php"]},"not":[{"path":["*/"]}]}],"handle":[{"handler":"static_response","headers":{"Location":["{http.request.orig_uri.path}/"]},"status_code":308}]},{"match":[{"file":{"try_files":["{http.request.uri.path}","{http.request.uri.path}/index.php","index.php"],"split_path":[".php"]}}],"handle":[{"handler":"rewrite","uri":"{http.matchers.file.relative}"}]},{"match":[{"path":["*.php"]}],"handle":[{"handler":"php","split_path":[".php"]}]},{"handle":[{"handler":"file_server"}]},{"handle":[{"handler":"file_server","hide":["/nix/store/7gfnjbxanzwcxnm4wvh8m37bksh54y03-order-page-files/frankenphpconfig"]}]}]}}}}}
+
+EOF
+
+# Above is adapted from the below with `frankenphp adopt <file> --adapter caddyfile` and then modified to disable admin
+# {
+#   frankenphp
+#   order php_server before file_server
+# }
+
+# :8089 {
+#   encode zstd br gzip
+#   root * /nix/store/kgsh1f8mkj6wmw14z3vgzf3amil87ls4-order-page-files/
+#   php_server
+#   file_server
+# }
     '';
   };
+
+  orderPage = pkgs.writeScriptBin "run.sh" ''
+    #!${pkgs.stdenv.shell}
+    ${pkgs.frankenphp}/bin/frankenphp run --config ${orderPageFiles}/frankenphpconfig.json
+  '';
 
   services = {
     mysql = {
@@ -110,15 +133,6 @@ EOF
       ];
     };
 
-    phpfpm = {
-      phpPackage = pkgs.php;
-      pools.www = {
-        user = "pup";
-        group = "pup";
-        listen = "/run/php-fpm/www.sock";
-      };
-    };
-
     caddy = {
       user = "pup";
       group = "pup";
@@ -126,19 +140,18 @@ EOF
       package = pkgs.caddy;
       extraConfig = ''
         :8090 {
-          handle_path /order/* {
-            root * ${orderPageFiles}/
-            php_fastcgi /run/php-fpm/www.sock
-            file_server
+          @order {
+            path /order/*
+          }
+
+          handle @order {
+            uri strip_prefix /order
+            reverse_proxy 127.0.0.1:8089
           }
 
           handle {
             root * ${websiteFiles}/
             file_server
-          }
-
-          handle_errors {
-            respond "404"
           }
         }
       '';
@@ -146,5 +159,5 @@ EOF
   };
 in
 {
-  inherit services shipper orderPageFiles;
+  inherit services shipper orderPage;
 }
