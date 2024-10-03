@@ -5,9 +5,10 @@ let
   pname = "gigawallet";
   version = "1.0.1";
 
-  src = fetchGit {
+  src = pkgs.fetchgit {
     url = "https://github.com/dogecoinfoundation/gigawallet.git";
-    ref = "refs/tags/v1.0.1";
+    rev = "refs/tags/v1.0.1";
+    hash = "sha256-PIKb4WnhJVE4Cj/UqAxeB8C/7An+UvpEemubziz4YNk=";
   };
 
   vendorHash = "sha256-mW5SStSabjWIlLWarI0OfyCTRWRQnEbk2BXabJCJ2h4";

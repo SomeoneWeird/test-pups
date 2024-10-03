@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "meta": {
     "name": "Gigawallet",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "logoPath": "logo.png",
     "shortDescription": "",
     "longDescription": "Dogecoin GigaWallet is a backend service which provides a convenient integration API for platforms such as online shops, exchanges, social media platforms etc, to transact Dogecoin on behalf of their users.",
@@ -16,7 +16,7 @@
   "container": {
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "57a75a0a5b3437f177241e25e3676fa42e9ad95ac4964243560b056555005266"
+      "nixFileSha256": "06c424faabd296eb79a67a97d3d1811067999e552c119866b0dc1181479d6b75"
     },
     "services": [
       {
@@ -34,14 +34,16 @@
         "type": "http",
         "port": 8082,
         "interfaces": ["gigawallet-public"],
-        "listenOnHost": true
+        "listenOnHost": true,
+        "webUI": false
       },
       {
         "name": "admin-port",
         "type": "tcp",
         "port": 8081,
         "interfaces": ["gigawallet-admin"],
-        "listenOnHost": false
+        "listenOnHost": false,
+        "webUI": false
       }
     ],
     "requiresInternet": true
@@ -55,6 +57,7 @@
           "name": "Public",
           "description": "Allows public access to Gigawallet",
           "severity": 1,
+          "routes": null,
           "port": 8082
         }
       ]
@@ -67,6 +70,7 @@
           "name": "Admin",
           "description": "Allows admin access to Gigawallet",
           "severity": 3,
+          "routes": null,
           "port": 8081
         }
       ]
@@ -76,12 +80,24 @@
     {
       "interfaceName": "core-rpc",
       "interfaceVersion": "0.0.1",
-      "permissionGroups": ["RPC"]
+      "permissionGroups": ["RPC"],
+      "source": {
+        "sourceLocation": "",
+        "pupName": "",
+        "pupVersion": "",
+        "pupLogoBase64": ""
+      }
     },
     {
       "interfaceName": "core-zmq",
       "interfaceVersion": "0.0.1",
-      "permissionGroups": ["ZMQ"]
+      "permissionGroups": ["ZMQ"],
+      "source": {
+        "sourceLocation": "",
+        "pupName": "",
+        "pupVersion": "",
+        "pupLogoBase64": ""
+      }
     }
   ],
   "metrics": null
