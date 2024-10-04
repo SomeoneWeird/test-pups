@@ -14,7 +14,7 @@
   "container": {
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "085e0beceffd142821f51b4fdab31a921a68e07dec6826e9dc3efdc289aaa552"
+      "nixFileSha256": "17f563eb2c072203dbdafb2780149b8e3121e272fe3ca0b4a3110a428d75da20"
     },
     "services": [
       {
@@ -39,7 +39,9 @@
         "name": "handler",
         "type": "tcp",
         "port": 42068,
-        "interfaces": ["dogenet-handler"],
+        "interfaces": [
+          "dogenet-handler"
+        ],
         "listenOnHost": false,
         "webUI": false
       },
@@ -47,7 +49,9 @@
         "name": "web-api",
         "type": "http",
         "port": 8080,
-        "interfaces": ["dogenet-web-api-nodes"],
+        "interfaces": [
+          "dogenet-web-api-nodes"
+        ],
         "listenOnHost": false,
         "webUI": false
       }
@@ -76,7 +80,9 @@
           "name": "Read API Nodes",
           "description": "Allows read-only access to Node data",
           "severity": 1,
-          "routes": ["/nodes"],
+          "routes": [
+            "/nodes"
+          ],
           "port": 0
         }
       ]
