@@ -4,7 +4,7 @@
     "name": "Dogemap",
     "version": "0.0.1",
     "logoPath": "logo.png",
-    "shortDescription": "Find shibes & nodes around the globe",
+    "shortDescription": "Find shibes \u0026 nodes around the globe",
     "longDescription": "",
     "upstreamVersions": null
   },
@@ -14,7 +14,7 @@
   "container": {
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "d0af9292c8817af3722257d5dc6d5c74d62a9277159a4525515996134d7d3d41"
+      "nixFileSha256": "84aa531fcb5466c050385b2087e81448cef7c7c6503a270199f8fcf8ce2b21e0"
     },
     "services": [
       {
@@ -28,7 +28,7 @@
     ],
     "exposes": [
       {
-        "name": "map",
+        "name": "website",
         "type": "http",
         "port": 8080,
         "interfaces": null,
@@ -39,6 +39,20 @@
     "requiresInternet": false
   },
   "interfaces": [],
-  "dependencies": [],
+  "dependencies": [
+    {
+      "interfaceName": "dogenet-web-api-nodes",
+      "interfaceVersion": "0.0.1",
+      "permissionGroups": [
+        "Read API Nodes"
+      ],
+      "source": {
+        "sourceLocation": "",
+        "pupName": "",
+        "pupVersion": "",
+        "pupLogoBase64": ""
+      }
+    }
+  ],
   "metrics": null
 }
