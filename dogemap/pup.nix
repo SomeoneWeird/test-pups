@@ -14,7 +14,7 @@ let
 
   dogemap = pkgs.writeScriptBin "run.sh" ''
     #!${pkgs.bash}/bin/bash
-    ${jampuppy}/bin/jampuppy -A index.html --dir ${ui} --host 0.0.0.0 --port 8080 --proxy '/dogenet http://''${DBX_IFACE_DOGENET_WEB_API_NODES_HOST}:''${DBX_IFACE_DOGENET_WEB_API_NODES_PORT}/dbx/dogenet-web-api-nodes'
+    ${jampuppy}/bin/jampuppy -A index.html --dir ${ui} --host 0.0.0.0 --port 8080 --proxy "/dogenet http://''${DBX_IFACE_DOGENET_WEB_API_NODES_HOST}:''${DBX_IFACE_DOGENET_WEB_API_NODES_PORT}/dbx/dogenet-web-api-nodes"
   '';
 in
 {
