@@ -8,7 +8,8 @@ let
 
   dogenet = pkgs.writeScriptBin "run.sh" ''
     #!${pkgs.bash}/bin/bash
-    ${dogenet_upstream}/bin/dogenet
+    KEY=`cat /storage/delegated.key`
+    ${dogenet_upstream}/bin/dogenet --handler ''${DBX_PUP_IP}:42068
   '';
 in
 {

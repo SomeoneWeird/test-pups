@@ -2,8 +2,8 @@
 
 let
   identity_upstream = pkgs.callPackage (pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/dogeorg/dogebox-nur-packages/1112abf7b364c620192ccc3d92c0c99ec3890071/pkgs/identity/default.nix";
-    sha256 = "sha256-NDMxR+jpSZLosvwAFmFGektItf2iRclI1pshBaHJHXc=";
+    url = "https://raw.githubusercontent.com/dogeorg/dogebox-nur-packages/cf3b45f3beb1b15366544058582b69907050970a/pkgs/identity/default.nix";
+    sha256 = "sha256-tydl+uqFPkslnXJdg9Imcbh4ZmzpIDbKEBkUiPa3L18=";
   }) {};
 
   ui = pkgs.fetchgit {
@@ -15,7 +15,7 @@ let
   identity = pkgs.writeScriptBin "run.sh" ''
     #!${pkgs.bash}/bin/bash
     export KEY=`cat /storage/delegated.key`
-    ${identity_upstream}/bin/identity --bind ''${DBX_PUP_IP} --web ${ui}/src --dir /storage
+    ${identity_upstream}/bin/identity --bind ''${DBX_PUP_IP}:8099 --web ${ui}/src --dir /storage --handler ''${DBX_IFACE_DOGENET_HANDLER_HOST}:''${DBX_IFACE_DOGENET_HANDLER_PORT}
   '';
 in
 {
