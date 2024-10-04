@@ -28,7 +28,7 @@
     ],
     "exposes": [
       {
-        "name": "dogenet-comms",
+        "name": "dogenet-gossip",
         "type": "tcp",
         "port": 42069,
         "listenOnHost": true
