@@ -2,8 +2,8 @@
 
 let
   jampuppy = pkgs.callPackage (pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/dogeorg/dogebox-nur-packages/014fe49fe6b299c4ca1ff70608495629ec92b7bd/pkgs/jampuppy/default.nix";
-    sha256 = "sha256-9wpQdZ8U9KhMq+0rxD5UPWQl+RAaqSjO5VyJAD1sxas=";
+    url = "https://raw.githubusercontent.com/dogeorg/dogebox-nur-packages/0b01b0f9a537e44d0faf105abd879ea8dfac04ca/pkgs/jampuppy/default.nix";
+    sha256 = "sha256-467MLF9QKhj1ah823AUzQCL9zhMWzbIPf6bfhZqtvMw=";
   }) {};
 
   ui = pkgs.fetchgit {
