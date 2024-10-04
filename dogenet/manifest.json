@@ -47,10 +47,10 @@
       },
       {
         "name": "web-api",
-        "type": "http",
+        "type": "tcp",
         "port": 8080,
         "interfaces": [
-          "dogenet-web-api-nodes"
+          "dogenet-web-api"
         ],
         "listenOnHost": false,
         "webUI": false
@@ -73,17 +73,15 @@
       ]
     },
     {
-      "name": "dogenet-web-api-nodes",
+      "name": "dogenet-web-api",
       "version": "0.0.1",
       "permissionGroups": [
         {
-          "name": "Read API Nodes",
-          "description": "Allows read-only access to Node data",
+          "name": "Web API",
+          "description": "Allows access to Web API",
           "severity": 1,
-          "routes": [
-            "/nodes"
-          ],
-          "port": 0
+          "routes": null,
+          "port": 8080
         }
       ]
     }

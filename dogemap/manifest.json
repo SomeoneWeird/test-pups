@@ -14,7 +14,7 @@
   "container": {
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "0790f4da8f23c614c0c6abe462c50c050564a1041b3fc998d29e8082ea7176ca"
+      "nixFileSha256": "e847b11f49527b4a921ac248e1f74c1624f75a9530fda29447adaa9b657b92dc"
     },
     "services": [
       {
@@ -41,10 +41,10 @@
   "interfaces": [],
   "dependencies": [
     {
-      "interfaceName": "dogenet-web-api-nodes",
+      "interfaceName": "dogenet-web-api",
       "interfaceVersion": "0.0.1",
       "permissionGroups": [
-        "Read API Nodes"
+        "Web API"
       ],
       "source": {
         "sourceLocation": "",
