@@ -26,10 +26,54 @@
         }
       }
     ],
-    "exposes": [],
+    "exposes": [
+      {
+        "name": "dogenet-comms",
+        "type": "tcp",
+        "port": 42069,
+        "listenOnHost": true
+      },
+      {
+        "name": "handler",
+        "type": "tcp",
+        "port": 42068,
+        "interfaces": ["dogenet-handler"]
+      },
+      {
+        "name": "web-api",
+        "type": "http",
+        "port": 8080,
+        "interfaces": ["dogenet-web-api-nodes"]
+      }
+    ],
     "requiresInternet": false
   },
-  "interfaces": [],
+  "interfaces": [
+    {
+      "name": "dogenet-handler",
+      "version": "0.0.1",
+      "permissionGroups": [
+        {
+          "name": "Handler",
+          "description": "Allows a new Dogenet Handler to be registered",
+          "severity": 2,
+          "port": 42068
+        }
+      ]
+    },
+    {
+      "name": "dogenet-web-api-nodes",
+      "version": "0.0.1",
+      "permissionGroups": [
+        {
+          "name": "Read API Nodes",
+          "description": "Allows read-only access to Node data",
+          "severity": 1,
+          "routes": ["/nodes"]
+        }
+      ]
+    }
+  ],
   "dependencies": [],
   "metrics": null
 }
