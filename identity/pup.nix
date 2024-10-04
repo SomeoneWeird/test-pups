@@ -8,8 +8,8 @@ let
 
   ui = pkgs.fetchgit {
     url = "https://github.com/dogeorg/identity-ui.git";
-    rev = "a1f96955fa5719c992b2ebadea56a8deff99ee91";
-    hash = "sha256-297ij+kzN4d6ZC4X4O/XepapyIy5YhbBoIxBlm1uZSs=";
+    rev = "43e34651e68a52004f9d69bffdb98b29073dcacc";
+    hash = "sha256-EFcBYkJ5z3BdX+Dy5qqtBAx08w7Gyox1P6+BlHXCkWw=";
   };
 
   identity = pkgs.writeScriptBin "run.sh" ''
