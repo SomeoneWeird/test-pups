@@ -2,8 +2,8 @@
 
 let
   dogenet_upstream = pkgs.callPackage (pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/dogeorg/dogebox-nur-packages/03533186fd1fb7fe3a952518cb63de197b7c4793/pkgs/dogenet/default.nix";
-    sha256 = "sha256-gQ2e0Mm38d/wEMvDZmjVnKgQlGOiNQW1kYI4MasomKk=";
+    url = "https://raw.githubusercontent.com/dogeorg/dogebox-nur-packages/22e2e8041f9d857861c9b60bcefd6f0291fa5c56/pkgs/dogenet/default.nix";
+    sha256 = "sha256-fSjv8kJ5VCZ5nUlZpBqmNu/sS4wLU/glinOT7Axao8A=";
   }) {};
 
   dogenet = pkgs.writeScriptBin "run.sh" ''
