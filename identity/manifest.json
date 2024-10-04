@@ -14,7 +14,7 @@
   "container": {
     "build": {
       "nixFile": "pup.nix",
-      "nixFileSha256": "39276d4c3bb89e60c72056c26f20637efc1c7f1eca4c970fe3afbe6e2d9a31d0"
+      "nixFileSha256": "034450a507771396cef23cdd9698a9913af675e5c083a3ba194d179b15affcda"
     },
     "services": [
       {
@@ -39,6 +39,20 @@
     "requiresInternet": false
   },
   "interfaces": [],
-  "dependencies": [],
+  "dependencies": [
+    {
+      "interfaceName": "dogenet-handler",
+      "interfaceVersion": "0.0.1",
+      "permissionGroups": [
+        "Handler"
+      ],
+      "source": {
+        "sourceLocation": "",
+        "pupName": "",
+        "pupVersion": "",
+        "pupLogoBase64": ""
+      }
+    }
+  ],
   "metrics": null
 }
