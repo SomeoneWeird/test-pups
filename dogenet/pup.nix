@@ -9,7 +9,8 @@ let
   dogenet = pkgs.writeScriptBin "run.sh" ''
     #!${pkgs.bash}/bin/bash
     KEY=`cat /storage/delegated.key`
-    ${dogenet_upstream}/bin/dogenet --handler ''${DBX_PUP_IP}:42068 --web ''${DBX_PUP_IP}:8080
+    IP=`${pkgs.curl}/bin/curl https://reflector.dogecoin.org/me | ${pkgs.jq}/bin/jq -r .ip`
+    ${dogenet_upstream}/bin/dogenet --handler ''${DBX_PUP_IP}:42068 --web ''${DBX_PUP_IP}:8080 --public ''${IP}:42069
   '';
 in
 {
