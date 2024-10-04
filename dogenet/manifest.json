@@ -39,9 +39,7 @@
         "name": "handler",
         "type": "tcp",
         "port": 42068,
-        "interfaces": [
-          "dogenet-handler"
-        ],
+        "interfaces": ["dogenet-handler"],
         "listenOnHost": false,
         "webUI": false
       },
@@ -49,14 +47,12 @@
         "name": "web-api",
         "type": "http",
         "port": 8080,
-        "interfaces": [
-          "dogenet-web-api-nodes"
-        ],
+        "interfaces": ["dogenet-web-api-nodes"],
         "listenOnHost": false,
         "webUI": false
       }
     ],
-    "requiresInternet": false
+    "requiresInternet": true
   },
   "interfaces": [
     {
@@ -80,9 +76,7 @@
           "name": "Read API Nodes",
           "description": "Allows read-only access to Node data",
           "severity": 1,
-          "routes": [
-            "/nodes"
-          ],
+          "routes": ["/nodes"],
           "port": 0
         }
       ]
